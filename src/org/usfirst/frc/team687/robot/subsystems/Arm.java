@@ -20,7 +20,7 @@ public class Arm extends Subsystem {
     public Arm() {
 	m_arm = new TalonSRX(RobotMap.kArmID);
 	m_arm.setSensorPhase(false);
-	m_arm.setInverted(false);
+	m_arm.setInverted(true);
 	m_arm.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 	m_arm.config_kP(0, ArmConstants.kArmP, 0);
 	m_arm.config_kI(0, ArmConstants.kArmI, 0);
@@ -81,7 +81,7 @@ public class Arm extends Subsystem {
 	return m_arm.getOutputCurrent();
     }
 
-    public void reportState() {
+    public void reportToSmartDashboard() {
 	SmartDashboard.putNumber("Arm Position", getPosition());
 	SmartDashboard.putNumber("Arm Speed", getSpeed());
 	SmartDashboard.putNumber("Arm Voltage", getVoltage());

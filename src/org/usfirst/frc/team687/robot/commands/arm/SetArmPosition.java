@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class ArmSetPosition extends Command {
+public class SetArmPosition extends Command {
 
     private double m_desired;
 
-    public ArmSetPosition(double desired) {
+    public SetArmPosition(double desired) {
 	requires(Robot.arm);
 	m_desired = desired;
     }

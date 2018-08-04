@@ -19,8 +19,10 @@ public class NerdyMath {
 		return (int) (rotations * 4096);
 	    }
 
-	    public static int inchesToTicks(double inches) {
-		return (int) (inches / Math.PI / DriveConstants.kWheelDiameter * 4096);
+	    public static double inchesToTicks(double inches) {
+//		return (int) (inches / Math.PI / DriveConstants.kWheelDiameter * 4096);
+	    //cosmos has 1400 inches/tick
+		return (inches * 1400);
 	    }
 
 	    public static double ticksToRotations(int ticks) {

@@ -67,9 +67,10 @@ public class Drive extends Subsystem {
 		m_leftSlave1.setInverted(true);
 		m_leftSlave2.setInverted(true);
 		
-		m_rightMaster.setInverted(true);
-		m_rightSlave1.setInverted(true);
-		m_rightSlave2.setInverted(true);
+		m_rightMaster.setInverted(false);
+		m_rightSlave1.setInverted(false);
+		m_rightSlave2.setInverted(false);
+		
 		m_leftMaster.setSensorPhase(false);
 		m_rightMaster.setSensorPhase(false);
 		
@@ -205,7 +206,7 @@ public class Drive extends Subsystem {
     	SmartDashboard.putNumber("Yaw", getRawYaw());
     	SmartDashboard.putNumber("X pos", m_currentX);
     	SmartDashboard.putNumber("Y pos", m_currentY);
-    	
+    	SmartDashboard.putNumber("Robot pos", getAverageEncoderPosition());
     	
     }
     

@@ -5,6 +5,7 @@ import org.usfirst.frc.team687.robot.constants.DriveConstants;
 import org.usfirst.frc.team687.robot.utilities.NerdyMath;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -22,8 +23,9 @@ public class DriveToXY extends Command {
 	private double m_currentY;
 	private boolean m_useStraightPID;
 	private double m_direction;
+	private double m_distance, m_kP;
 	
-    public DriveToXY(double x, double y, double straightPower, boolean useStraightPID) {
+    public DriveToXY(double x, double y, double straightPower, double m_kP, boolean useStraightPID) {
     	m_desiredX = x;
     	m_desiredY = y;
     	m_useStraightPID = useStraightPID;
@@ -36,18 +38,20 @@ public class DriveToXY extends Command {
     	m_direction = Math.signum(m_straightPower);
     	m_currentX = Robot.drive.getXpos();
     	m_currentY = Robot.drive.getYpos(); 	
+    	m_distance = NerdyMath.distanceFormula(m_currentX, m_currentY, m_desiredX, m_desiredY);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	m_currentX = Robot.drive.getXpos();
     	m_currentY = Robot.drive.getYpos();
-    	m_desiredAngle = Math.atan2(m_desiredX - m_currentX, m_desiredY - m_currentY);
+    	m_desiredAngle = Math.toDegrees(Math.atan2(m_desiredX - m_currentX, m_desiredY - m_currentY));
+    	SmartDashboard.putNumber("desired angle", m_desiredAngle);
     	if (m_direction == -1) {
     		m_desiredAngle += 180;
     	}
-    	m_rotationalError = -m_desiredAngle - Robot.drive.getAngle();
-    	m_rotationalPower = m_rotationalError * DriveConstants.kRotP;
+    	double robotAngle = (360 - Robot.drive.getRawYaw()) % 360;
+    	m_rotationalError = -m_desiredAngle - robotAngle;
     	if (m_rotationalError >= 180) {
     		m_rotationalError -= 360;
     	}
@@ -56,9 +60,11 @@ public class DriveToXY extends Command {
     	}
     	
     	if (m_useStraightPID) {
-    		m_straightError = NerdyMath.distanceFormula(m_currentX, m_currentY, m_desiredX, m_desiredY);
+    		m_straightError = m_distance - Robot.drive.getAverageEncoderPosition();
         	m_straightPower = m_straightError * DriveConstants.kDriveP;
     	}
+    	m_rotationalPower = m_rotationalError * m_kP;
+
   
     	Robot.drive.setPower(m_straightPower - m_rotationalPower, m_straightPower + m_rotationalPower);
     	 	

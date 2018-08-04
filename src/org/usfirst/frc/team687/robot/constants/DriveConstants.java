@@ -22,15 +22,15 @@ public class DriveConstants {
 	public static final int kRightCruiseVelocity = 0;
 
 //	Rot PID Constants
-	public static final double kRotP = 0;
+	public static final double kRotP = 0.005;
 	public static final double kDriveRotationTolerance = 0;
-	public static final double kMaxRotPower = 0.8;
-	public static final double kMinRotPower = 0;
+	public static final double kMaxRotPower = 0.4;
+	public static final double kMinRotPower = 0.1;
 	public static final double kRotationalEncoderTolerance = 200;
 	
 //	Drive Constants, for driving straight
-	public static final double kDriveP = 0;
-	public static final double kDriveTolerance = 200;
+	public static final double kDriveP = 0.00000179;
+	public static final double kDriveTolerance = 10000;
 	
 //	Physical Robot Constants
 	public static double kWheelDiameter = 6;
@@ -50,6 +50,4 @@ public class DriveConstants {
 	public static double kLeftAdjustment = 1;
 	public static double kRightAdjustment = 1;
 
-	
-	
 }

@@ -56,27 +56,31 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		Robot.drive.calcXY();
 		Robot.drive.reportToSmartDashboard();
+		Robot.arm.reportToSmartDashboard();
 		Robot.oi.reportToSmartDashboard();
-		SmartDashboard.putData(pdp);
+		Robot.drive.calcXY();
 
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		Robot.drive.calcXY();
-		Scheduler.getInstance().run();
 		Robot.drive.reportToSmartDashboard();
+		Robot.arm.reportToSmartDashboard();
 		Robot.oi.reportToSmartDashboard();
-		SmartDashboard.putData(pdp);
+		Robot.drive.calcXY();
+
 
 	}
 
 	
 	@Override
 	public void autonomousInit() {
-		Robot.drive.calcXY();	
+		Scheduler.getInstance().run();
+		Robot.drive.reportToSmartDashboard();
+		Robot.arm.reportToSmartDashboard();
+		Robot.oi.reportToSmartDashboard();
+		Robot.drive.calcXY();		
 	}
 
 	/**
@@ -85,15 +89,19 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		Robot.drive.reportToSmartDashboard();
+		Robot.arm.reportToSmartDashboard();
+		Robot.oi.reportToSmartDashboard();
 		Robot.drive.calcXY();
 	}
 
 	@Override
 	public void teleopInit() {
+		Scheduler.getInstance().run();
 		Robot.drive.reportToSmartDashboard();
+		Robot.arm.reportToSmartDashboard();
 		Robot.oi.reportToSmartDashboard();
 		Robot.drive.calcXY();
-		SmartDashboard.putData(pdp);
 		
 		
 	}
@@ -104,11 +112,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		Robot.drive.calcXY();
 		Robot.drive.reportToSmartDashboard();
+		Robot.arm.reportToSmartDashboard();
 		Robot.oi.reportToSmartDashboard();
-		SmartDashboard.putData(pdp);
-
+		Robot.drive.calcXY();
 	}
 
 	/**
@@ -116,10 +123,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		Robot.drive.calcXY();
+		Scheduler.getInstance().run();
 		Robot.drive.reportToSmartDashboard();
+		Robot.arm.reportToSmartDashboard();
 		Robot.oi.reportToSmartDashboard();
-		SmartDashboard.putData(pdp);
+		Robot.drive.calcXY();
 
 	}
 }

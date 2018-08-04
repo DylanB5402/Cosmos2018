@@ -1,4 +1,4 @@
-package org.usfirst.frc.team687.robot.commands.drive;
+package org.usfirst.frc.team687.robot.commands.arm;
 
 import org.usfirst.frc.team687.robot.Robot;
 
@@ -7,25 +7,27 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ResetDriveEncoders extends Command {
+public class SetArmPercentOutput extends Command {
 
-    public ResetDriveEncoders() {
-       requires(Robot.drive);
+	private double m_power;
+    public SetArmPercentOutput(double power) {
+    	m_power = power;
+    	requires(Robot.arm);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drive.resetEncoders();
+    	Robot.arm.setPower(m_power);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drive.resetEncoders();
+    	Robot.arm.setPower(m_power);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.drive.getAverageEncoderPosition() == 0;
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -35,5 +37,6 @@ public class ResetDriveEncoders extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.arm.setPower(0);
     }
 }

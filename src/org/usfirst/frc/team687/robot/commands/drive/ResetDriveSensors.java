@@ -1,37 +1,35 @@
-package org.usfirst.frc.team687.robot.commands.drive.teleop;
+package org.usfirst.frc.team687.robot.commands.drive;
 
 import org.usfirst.frc.team687.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class TankDrive extends Command {
-	
-	private double m_leftPower, m_rightPower;
-    public TankDrive() {
-        requires(Robot.drive);
+public class ResetDriveSensors extends Command {
+
+    public ResetDriveSensors() {
+       requires(Robot.drive);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	SmartDashboard.putString("Current Command", "Tank Drive");
+    	Robot.drive.resetEncoders();
+    	Robot.drive.resetYaw();
+    	Robot.drive.resetXY();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	m_leftPower = Robot.oi.getLeftY();
-//    	m_rightPower = Robot.oi.getRightY();
-    	m_rightPower = Robot.oi.getLeftY();
-    	Robot.drive.setPower(m_leftPower, m_rightPower);
+    	Robot.drive.resetEncoders();
+    	Robot.drive.resetYaw();
+    	Robot.drive.resetXY();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.drive.getAverageEncoderPosition() == 0;
     }
 
     // Called once after isFinished returns true
@@ -39,6 +37,7 @@ public class TankDrive extends Command {
     }
 
     // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

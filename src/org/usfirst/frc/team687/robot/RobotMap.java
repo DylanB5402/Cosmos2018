@@ -23,7 +23,7 @@ public class RobotMap {
 	public static final int kRightSlaveTalonSRX1ID = 5;
 	public static final int kRightSlaveTalonSRX2ID = 6;
 
-	public static final int kArmID = 7;
-	public static int kClawSolenoidID2;
-	public static int kClawSolenoidID1;
+	public static final int kArmID = 0;
+	public static final int kClawSolenoidID2 = 0;
+	public static final int kClawSolenoidID1 = 1;
 }

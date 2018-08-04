@@ -7,7 +7,17 @@
 
 package org.usfirst.frc.team687.robot;
 
-import org.usfirst.frc.team687.robot.commands.drive.ResetDriveEncoders;
+import org.usfirst.frc.team687.robot.commands.arm.ClawForward;
+import org.usfirst.frc.team687.robot.commands.arm.ClawReverse;
+import org.usfirst.frc.team687.robot.commands.arm.ResetArmEncoder;
+import org.usfirst.frc.team687.robot.commands.arm.SetArmPercentOutput;
+import org.usfirst.frc.team687.robot.commands.arm.SetArmPosition;
+import org.usfirst.frc.team687.robot.commands.drive.ResetDriveSensors;
+import org.usfirst.frc.team687.robot.commands.drive.auto.DriveDistancePID;
+import org.usfirst.frc.team687.robot.commands.drive.auto.DriveToXY;
+import org.usfirst.frc.team687.robot.commands.drive.auto.TurnToAngle;
+import org.usfirst.frc.team687.robot.constants.ArmConstants;
+import org.usfirst.frc.team687.robot.utilities.NerdyMath;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -24,11 +34,22 @@ public class OI {
 	public OI() {
 		leftStick = new Joystick(0);
 		rightStick = new Joystick(1);
-		SmartDashboard.putData("Reset Drive Encoders", new ResetDriveEncoders());
+		SmartDashboard.putData("Reset Drive Sensors", new ResetDriveSensors());
+		SmartDashboard.putData("Reset Arm Encoder", new ResetArmEncoder());
+//		SmartDashboard.putData("Arm positive Voltage", new SetArmPercentOutput(0.5));
+//		SmartDashboard.putData("Arm negative Voltage", new SetArmPercentOutput(-0.5));
+//		SmartDashboard.putData("Arm Score", new SetArmPosition(ArmConstants.kArmScorePos));
+//		SmartDashboard.putData("claw forward", new ClawForward());
+//		SmartDashboard.putData("claw reverse", new ClawReverse());
+		SmartDashboard.putData("90 deg", new TurnToAngle(90, 1, 5));
+		SmartDashboard.putData("Drive 100 in", new DriveDistancePID(NerdyMath.inchesToTicks(100)));
+//		SmartDashboard.putData("Drive to (0, 50000)", new DriveToXY(0, 50000, 0.2, true));
+		SmartDashboard.putData("Drive to (100000, 100000)", new DriveToXY(50000, 50000, 0.2, 0.00, true));
+
 	}
 	
 	public double getLeftY() {
-		return leftStick.getY();
+		return -leftStick.getY();
 	}
 	
 	public double getLeftX() {
@@ -36,7 +57,7 @@ public class OI {
 	}
 	
 	public double getRightY() {
-		return rightStick.getY();
+		return -rightStick.getY();
 	}
 	
 	public double getRightX() {
